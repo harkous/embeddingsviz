@@ -14,19 +14,19 @@ It is tested on  with TensorFlow 1.2.1 under Python 2.7 (It is more straightforw
 
 1. Install [Faiss](https://github.com/facebookresearch/faiss), Facebook's library for efficient similarity search, by following their [guide](https://github.com/facebookresearch/faiss/blob/master/INSTALL)
     * For example, on **Ubuntu 14 (CPU installation)**, I followed the below steps:
-        ```bash
-        # Clone faiss
-        git clone https://github.com/facebookresearch/faiss.git
-        cd faiss
-        # copy the make file
-        cp example_makefiles/makefile.inc.Linux ./makefile.inc
-        #  Uncomment the part for your system in makefile.inc and apply the commands. E.g. for Ubuntu 14, I applied `sudo apt-get install libopenblas-dev liblapack3 python-numpy python-dev` and uncommented the line starting with BLASLDFLAGS
-        # for the cpu installation:
+	```bash
+	# Clone faiss
+	git clone https://github.com/facebookresearch/faiss.git
+	cd faiss
+	# copy the make file
+	cp example_makefiles/makefile.inc.Linux ./makefile.inc
+	#  Uncomment the part for your system in makefile.inc and apply the commands. E.g. for Ubuntu 14, I applied `sudo apt-get install libopenblas-dev liblapack3 python-numpy python-dev` and uncommented the line starting with BLASLDFLAGS
+	# for the cpu installation:
 	vi ./makefile.inc
-        make tests/test_blas
-		make
-		make py
-        ```
+	make tests/test_blas
+	make
+	make py
+	```
 2. Create the python virtual environment in order to install the project prerequisites there, without affecting the rest of your python environment. I executed the below commands. You might need to install the virtual environment using `sudo apt-get install python-pip python-dev python-virtualenv`. If you use Anaconda, you can do the corresponding steps there.
 	```
 	virtualenv --system-site-packages venv_dir
