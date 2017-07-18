@@ -76,7 +76,7 @@ It is tested on  with TensorFlow 1.2.1 under Python 2.7 (It is more straightforw
   
     
 ## Developer
-[Hamza Harkous](hamzaharkous.com)
+[Hamza Harkous](http://hamzaharkous.com)
 
 ## License
 [MIT](https://opensource.org/licenses/MIT)
