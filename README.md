@@ -69,7 +69,9 @@ It is tested on  with TensorFlow 1.2.1 under Python 2.7 (It is more straightforw
 	```bash
 	tensorboard --logdir=logs --port=6006
 	```
-4. Now you can point your browser to the embeddings visualization, e.g. `http://server_address:6006/#embeddings`
+4. Now you can point your browser to the embeddings visualization, e.g. `http://server_address:6006/#embeddings`. You will see an interface like the following:
+	![Screenshot](https://www.tensorflow.org/images/embedding-nearest-points.png "Embeddings in TensorBoard")
+
 	
   
     
