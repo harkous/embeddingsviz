@@ -51,13 +51,14 @@ It is tested on  with TensorFlow 1.2.1 under Python 2.7 (It is more straightforw
 	python embeddings_knn.py -e ORIGINAL_EMBEDDINGS_FILE -v VOCAB_TXT_FILE -o OUTPUT_EMBEDDINGS_FILE -k NUM_NEIGHBORS
 	# e.g.: python embeddings_knn.py -e ~/data/fasttext.vec -v ./vocab_file.txt -o ./fasttext_subset_1.vec -k 100
 	```
-    The ORIGINAL_EMBEDDINGS_FILE is assumed to be of the following format. The first line is a header setting the vocabulary size and the embeddings dimension. 	This is by default the format used in [fastText](https://github.com/facebookresearch/fastText). 
+    The ORIGINAL_EMBEDDINGS_FILE is assumed to be of the following format. The first line is a header setting the vocabulary size and the embeddings dimension. This is the format used in [fastText](https://github.com/facebookresearch/fastText). 
 	```
 	VOCAB_SIZE EMBEDDING_DIMENSIONS
 	word_1 vec_1
 	word_2 vec_2
 	```
-   	You can use another format which does not has a header (e.g., the default GloVe format), by passing `--no_header` argument. 
+   	
+   	However, the code will also work with another format which does not has a header (e.g., the default GloVe format). 
     
     This step has to be executed for each embeddings file you want. The VOCAB_TXT_FILE has one word per line. NUM_NEIGHBORS has to be chosen so that the total number of words in the vocab and their neighbors is not very large (e.g., they should add up to ~10,000 words).
     

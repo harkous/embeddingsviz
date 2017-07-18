@@ -32,7 +32,7 @@ def read_lines_from_file(filename, unicode=True):
     return lines
 
 
-def knn(embedding_file, vocab_filename, output_file, k=100, no_header=False):
+def knn(embedding_file, vocab_filename, output_file, k=100):
     """Searches for the  k nearest neighbors of the words in the vocab_filename among those in the embedding_file
     If the file format is fasttext, which has a header then the embedding_dimensions and vocab_size are
     obtained from the header line.
@@ -58,10 +58,14 @@ def knn(embedding_file, vocab_filename, output_file, k=100, no_header=False):
         print('reading the embeddings')
         lines = inputfile.readlines()
 
+        no_header =len(lines[0].rstrip().split()) != 2
+
         # as in fasttext
         if no_header:
             emb_vocab_size = len(lines)
             embedding_dimensions = len(lines[0].rstrip().split()) - 1
+            print('Note: I assume the embeddings file has no header that specifies the vocab size and the'
+                  ' embedding dimensions. I\'m guessing them myself')
         else:
             line = lines[0]
             line = line.rstrip()
@@ -71,8 +75,8 @@ def knn(embedding_file, vocab_filename, output_file, k=100, no_header=False):
             lines.pop(0)
 
         print(
-        'detected the embedding_dimensions as ' + str(embedding_dimensions) + ' and the full vocab size as ' + str(
-            emb_vocab_size))
+            'detected the embedding_dimensions as ' + str(embedding_dimensions) + ' and the full vocab size as ' + str(
+                emb_vocab_size))
 
         # for storing all the embeddings
         embeddings = np.empty((emb_vocab_size, embedding_dimensions), dtype=np.float32)
@@ -109,9 +113,10 @@ def knn(embedding_file, vocab_filename, output_file, k=100, no_header=False):
         D, I = index.search(vocab_embeddings, k)  # actual search
 
         # get list of indices for the neighbors in the original embeddings
-        indices = []
+        indices = {}
         for coords, x in np.ndenumerate(I):
-            indices.append(x)
+            # to avoid duplicates
+            indices[x]=''
 
         print('time for searching index: ', time.time() - start)
 
@@ -122,7 +127,11 @@ def knn(embedding_file, vocab_filename, output_file, k=100, no_header=False):
             for m, ind in enumerate(indices):
                 # convert array of floats to string of space-separated numbers
                 coefs = ' '.join(map(str, embeddings[ind]))
-                outputfile.write(index_to_word[ind] + ' ' + coefs + '\n')
+                try:
+                    outputfile.write(index_to_word[ind] + ' ' + coefs + '\n')
+                except:
+                    # in case the index is negative
+                    continue
             print('finished writing output')
         print('Success!')
 
@@ -133,13 +142,10 @@ if __name__ == "__main__":
     parser.add_argument('-v', '--vocab', help='Vocab filename', dest='vocab_filename')
     parser.add_argument('-o', '--output', help='Output embeddings filename', dest='output_file', required=True)
     parser.add_argument('-k', '--k_nearest', help='k', dest='k', type=int)
-    parser.add_argument('-n', '--no_header', help='Embeddings file has no header', dest='no_header',
-                        action='store_true')
 
     options = parser.parse_args()
 
     knn(options.embedding_file,
         options.vocab_filename,
         options.output_file,
-        k=options.k,
-        no_header=options.no_header)
+        k=options.k)
