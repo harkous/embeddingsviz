@@ -51,7 +51,6 @@ def knn(embedding_file, vocab_filename, output_file, k=100, no_header=False):
     """
     with open(embedding_file, 'r') as inputfile:
         vocab = read_lines_from_file(vocab_filename)
-        vocab = random.sample(vocab, 300)
         vocab_dict = {item: '' for item in vocab}
 
         j = 0
