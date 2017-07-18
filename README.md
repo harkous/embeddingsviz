@@ -22,6 +22,7 @@ It is tested on  with TensorFlow 1.2.1 under Python 2.7 (It is more straightforw
         cp example_makefiles/makefile.inc.Linux ./makefile.inc
         #  Uncomment the part for your system in makefile.inc and apply the commands. E.g. for Ubuntu 14, I applied `sudo apt-get install libopenblas-dev liblapack3 python-numpy python-dev` and uncommented the line starting with BLASLDFLAGS
         # for the cpu installation:
+	vi ./makefile.inc
         make tests/test_blas
 		make
 		make py
